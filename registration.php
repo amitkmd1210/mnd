@@ -1,5 +1,7 @@
 <?php
+include('config.php');
 $error = '';
+$success = '';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -10,6 +12,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if($password != $cpassword) {
         $error = "Password and Confirm Password should match!";
+    }
+
+    if (empty($error)) {
+
+    try {
+
+    $hasPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "insert into users(email,username,password) values('$email', '$username', '$hasPassword')";
+        $result = mysqli_query($conn, $sql);
+
+        if(mysqli_affected_rows($conn) > 0) {
+
+          $success = "Data insert successfully";
+        }
+        else {
+            $error = "Could not insert data!";
+        }
+
+    }
+    catch(Exception $e) {
+        $error = mysqli_error($conn);
+    }
+
     }
 }
 ?>
@@ -41,27 +67,32 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php echo $error; ?>
 </div>
 <?php endif; ?>
+<?php if($success): ?>
+<div class="alert alert-success">
+    <?php echo $success; ?>
+</div>
+    <?php endif; ?>
 
 <form method="POST">
 
 <div class="col-md-6">
 <label>Email</label>
-<input type="email" class="form-control" name="email" id="email" require />
+<input type="email" class="form-control" name="email" id="email" required />
 </div>
 
 <div class="col-md-6">
 <label>Username</label>
-<input type="text" class="form-control" name="username" id="username" require />
+<input type="text" class="form-control" name="username" id="username" required />
 </div>
 
 <div class="col-md-6">
 <label>Password</label>
-<input type="password" class="form-control" name="password" id="password" require />
+<input type="password" class="form-control" name="password" id="password" required />
 </div>
 
 <div class="col-md-6">
 <label>Confirm Password</label>
-<input type="password" class="form-control" name="cpassword" id="cpassword" require />
+<input type="password" class="form-control" name="cpassword" id="cpassword" required />
 </div>
 
 <div class="col-md-6">
