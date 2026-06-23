@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('config.php');
 $error = '';
 $success = '';
@@ -17,7 +18,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(password_verify($password,$data['password'])) {
 
+        $_SESSION['user_id'] = $data['id'];
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['email'] = $data['email'];
+
         $success = "Login successfull";
+        header("Location: dashboard.php");
     }
     else {
         $error = "Invalid password";
