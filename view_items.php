@@ -39,6 +39,7 @@ include('navbar.php');
             <th>Name</th>
             <th>Price</th>
             <th>Created Date</th>
+            <th>Image</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -53,6 +54,7 @@ include('navbar.php');
             <td><?php echo $key + 1; ?></td>
             <td><?php echo $value['name']; ?></td>
             <td><?php echo $value['price']; ?></td>
+            <td><img src="uploads/<?php echo $value['image']; ?>" alt="" width="60" height="60"></td>
             <td><a href="edit_item.php?id=<?php echo $value['id']; ?>" class="btn btn-primary" >Edit</a>&nbsp;<a href="delete_item.php?id=<?php echo $value['id']; ?>" class="btn btn-danger" onclick="delete_fun()">Delete</a></td>
             
         </tr>

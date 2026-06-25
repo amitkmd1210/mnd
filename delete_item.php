@@ -19,6 +19,7 @@ if(isset($_REQUEST['id'])) {
     
     if(mysqli_affected_rows($conn) > 0) {
 
+    // unlink("uploads/" . $row['image']);
     // $success = "Row daleted successfully";
     header('Location: view_items.php');
     }
