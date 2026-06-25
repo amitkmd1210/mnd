@@ -53,7 +53,8 @@ include('navbar.php');
             <td><?php echo $key + 1; ?></td>
             <td><?php echo $value['name']; ?></td>
             <td><?php echo $value['price']; ?></td>
-            <td><a href="#">Edit</a></td>
+            <td><a href="#" class="btn btn-primary">Edit</a>&nbsp;<a href="#" class="btn btn-danger">Delete</a></td>
+            
         </tr>
         <?php 
         }
