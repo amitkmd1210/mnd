@@ -53,7 +53,7 @@ include('navbar.php');
             <td><?php echo $key + 1; ?></td>
             <td><?php echo $value['name']; ?></td>
             <td><?php echo $value['price']; ?></td>
-            <td><a href="#" class="btn btn-primary">Edit</a>&nbsp;<a href="#" class="btn btn-danger">Delete</a></td>
+            <td><a href="edit_item.php?id=<?php echo $value['id']; ?>" class="btn btn-primary" >Edit</a>&nbsp;<a href="delete_item.php?id=<?php echo $value['id']; ?>" class="btn btn-danger" onclick="delete_fun()">Delete</a></td>
             
         </tr>
         <?php 
@@ -77,3 +77,8 @@ include('navbar.php');
 <?php
 include('footer.php');
 ?>
+<script>
+    function delete_fun() {
+        alert('Are you want to delete!');
+    }
+</script>
