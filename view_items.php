@@ -9,6 +9,21 @@ if(!isset($_SESSION['user_id'])) {
 
 $error = '';
 $success = '';
+$data = [];
+
+$sql = "select * from items order by id desc";
+$result = mysqli_query($conn, $sql);
+
+if(mysqli_num_rows($result) > 0) {
+
+    while($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+    // echo "<pre>"; print_r($data);
+}
+else {
+    $error = "No data found";
+}
 
 ?>
 <?php
@@ -16,6 +31,47 @@ include('header.php');
 include('navbar.php');
 ?>
 
+<div class="table-responsive">
+    <center><h3 class="tbl">View Items</h3></center>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Created Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php
+        if(!empty($data)) {
+
+        foreach($data as $key => $value) {
+        ?>
+        <tr>
+            <td><?php echo $key + 1; ?></td>
+            <td><?php echo $value['name']; ?></td>
+            <td><?php echo $value['price']; ?></td>
+            <td><a href="#">Edit</a></td>
+        </tr>
+        <?php 
+        }
+        }
+        else {
+            ?>
+            <tr>
+                <td>
+                    <span>No data found.</span>
+                </td>
+                
+            </tr>
+            <?php
+        }
+         ?>
+    </tbody>
+</table>
+</div>
 
 <?php
 include('footer.php');
